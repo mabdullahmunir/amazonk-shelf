@@ -10,4 +10,4 @@ app.post('/open-shelf', function(req, res){
     res.send(req.body.idBarang);
 });
 
-app.listen(3000);
+app.listen(process.env.PORT);
