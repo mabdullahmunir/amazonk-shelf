@@ -1,8 +1,8 @@
 let express = require('express')
 let app = express()
 
-app.get('/open-shelf', function(req, res){
-    res.send("Yeet, son");
+app.post('/open-shelf', function(req, res){
+    res.send(JSON.parse(req.body).idBarang);
 });
 
 app.listen(process.env.PORT);
