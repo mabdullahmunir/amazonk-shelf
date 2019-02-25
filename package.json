@@ -1,0 +1,12 @@
+{
+  "name": "amazonk-shelf-manager",
+  "version": "1.0.0",
+  "description": "Yeet",
+  "main": "index.js",
+  "repository": "https://gitlab.informatika.org/if3111-2019-amazonk/firebase-function",
+  "author": "diwangs <27280516+diwangs@users.noreply.github.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
