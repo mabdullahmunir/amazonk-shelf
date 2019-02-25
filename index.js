@@ -5,4 +5,4 @@ app.get('/open-shelf', function(req, res){
     res.send("Yeet, son");
 });
 
-app.listen(80);
+app.listen(process.env.PORT);

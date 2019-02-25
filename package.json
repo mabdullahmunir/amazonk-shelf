@@ -11,5 +11,9 @@
   },
   "scripts": {
     "start" : "node index.js"
+  },
+  "engines": {
+    "node": "11.10.0",
+    "npm": "6.8.0"
   }
 }
