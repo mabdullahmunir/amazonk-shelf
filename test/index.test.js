@@ -13,7 +13,7 @@ describe('Test API open-shelf', () => {
         .end(function(err, res) {
           expect(res.status).to.equal(200);
           expect(res.body.status).to.equal('OK');
-          done(err);
+          done();
         });
   });
 });
