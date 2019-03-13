@@ -10,10 +10,15 @@
     "express": "^4.16.4"
   },
   "scripts": {
-    "start" : "node index.js"
+    "start": "node index.js",
+    "test": "mocha"
   },
   "engines": {
-    "node": "11.10.0",
-    "npm": "6.8.0"
+    "node": "8.10.0",
+    "npm": "3.5.2"
+  },
+  "devDependencies": {
+    "eslint": "^5.15.1",
+    "eslint-config-google": "^0.12.0"
   }
 }

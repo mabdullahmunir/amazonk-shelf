@@ -1,13 +1,23 @@
-let bodyParser = require('body-parser')
-let express = require('express')
-let app = express()
+const bodyParser = require('body-parser');
+const express = require('express');
+const app = express();
 
-app.use(bodyParser.urlencoded({ extended : false}))
-app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
 
-app.post('/open-shelf', function(req, res){
-    console.log(req.body)
-    res.send(req.body.idBarang);
+app.get('/', function(req, res) {
+  res.send('test ci');
 });
 
-app.listen(process.env.PORT);
+app.post('/open-shelf', function(req, res) {
+  console.log(req.body);
+  res.status(200).send({
+    status: req.body.idBarang,
+  });
+});
+
+const server = app.listen(process.env.PORT, () => {
+  console.log('App running on port ' + process.env.PORT);
+});
+
+module.exports = server;
