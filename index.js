@@ -12,7 +12,7 @@ app.get('/', function(req, res) {
 app.post('/open-shelf', function(req, res) {
   console.log(req.body);
   res.status(200).send({
-    status: req.body.idBarang,
+    status: 'OK',
   });
 });
 
