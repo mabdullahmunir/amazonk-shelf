@@ -7,11 +7,13 @@
   "author": "diwangs <27280516+diwangs@users.noreply.github.com>",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.16.4"
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "firebase-admin": "^7.1.0"
   },
   "scripts": {
     "start": "node index.js",
-    "test": "mocha --exit"
+    "test": "mocha --exit; eslint --ignore-path .gitignore ."
   },
   "engines": {
     "node": "8.10.0",
