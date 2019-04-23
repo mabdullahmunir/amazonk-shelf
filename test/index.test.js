@@ -8,7 +8,10 @@ describe('Test API open-shelf', () => {
   it('should be status = OK', (done) => {
     request(app)
         .post('/open-shelf')
-        .send({idBarang: 'hehe'})
+        .send({
+          barang: 'hehe',
+          email: 'test@example.com',
+        })
         .set('Accept', 'application/json')
         .end(function(err, res) {
           expect(res.status).to.equal(200);

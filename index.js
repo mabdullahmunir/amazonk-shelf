@@ -13,12 +13,12 @@ const serviceAccount = require('./amazonk-firestore.json');
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://k-72b41.firebaseio.com"
+  databaseURL: 'https://k-72b41.firebaseio.com',
 });
 
 const db = admin.firestore();
 
-var opened_shelf = {};
+const openedShelf = {};
 
 app.get('/scoreboard', function(req, res) {
   db.collection('scoreboards').get()
@@ -67,7 +67,7 @@ app.post('/add-score', function(req, res) {
 
 app.post('/add-voucher', function(req, res) {
   if (req.body.email != undefined) {
-    const topic = req.body.email.replace(/[@+]/, "").replace(".", "");
+    const topic = req.body.email.replace(/[@+]/, '').replace('.', '');
     const docRef = db.collection('vouchers').doc(req.body.email);
 
     console.log(topic);
@@ -75,9 +75,9 @@ app.post('/add-voucher', function(req, res) {
     const message = {
       notification: {
         title: 'Got Voucher',
-        body: 'You get voucher from AmazonkGame'
+        body: 'You get voucher from AmazonkGame',
       },
-      topic: topic
+      topic: topic,
     };
 
     docRef.get().then(function(doc) {
@@ -93,12 +93,12 @@ app.post('/add-voucher', function(req, res) {
           }, );
 
           admin.messaging().send(message)
-            .then((response) => {
-              console.log('Successfully sent message:', response);
-            })
-            .catch((error) => {
-              console.log('Error sending message:', error);
-            });
+              .then((response) => {
+                console.log('Successfully sent message:', response);
+              })
+              .catch((error) => {
+                console.log('Error sending message:', error);
+              });
 
           res.status(200).send({
             status: 'OK',
@@ -132,11 +132,11 @@ app.post('/add-voucher', function(req, res) {
 app.post('/open-shelf', function(req, res) {
   if (req.body.barang != undefined
     && req.body.email != undefined) {
+    if (openedShelf[req.body.barang] == undefined) {
+      openedShelf[req.body.barang] = [];
+    }
 
-    if (opened_shelf[req.body.barang] == undefined)
-      opened_shelf[req.body.barang] = [];
-
-    opened_shelf[req.body.barang].push(req.body.email);
+    openedShelf[req.body.barang].push(req.body.email);
 
     res.status(200).send({
       status: 'OK',
@@ -151,14 +151,13 @@ app.post('/open-shelf', function(req, res) {
 app.post('/close-shelf', function(req, res) {
   if (req.body.barang != undefined
     && req.body.count != undefined) {
-
-    email = opened_shelf[req.body.barang].shift();
+    email = openedShelf[req.body.barang].shift();
 
     const docRef = db.collection('cart').doc(email);
     docRef.update({
-      'productList' : FieldValue.arrayUnion({
-        'idProduk' : req.body.barang,
-        'jumlah' : req.body.count,
+      'productList': FieldValue.arrayUnion({
+        'idProduk': req.body.barang,
+        'jumlah': req.body.count,
       }),
     });
 
@@ -173,7 +172,29 @@ app.post('/close-shelf', function(req, res) {
 });
 
 app.get('/opened-shelf', function(req, res) {
-  res.status(200).send(opened_shelf);
+  res.status(200).send(openedShelf);
+});
+
+app.post('/get-info', function(req, res) {
+  if (req.body.barang != undefined) {
+    db.collection('products').doc(req.body.barang).get()
+        .then(function(doc) {
+          if (doc.exists) {
+            res.status(200).send({
+              nama: doc.data().namaProduk,
+              harga: doc.data().harga,
+            });
+          } else {
+            res.status(200).send({
+              status: 'Product not found',
+            });
+          }
+        });
+  } else {
+    res.status(200).send({
+      status: 'Wrong Parameter',
+    });
+  }
 });
 
 port = process.env.PORT || 3000;
