@@ -1,2 +1,2 @@
-# Firebase Function
+# Amazonk Shelf Manager
 
