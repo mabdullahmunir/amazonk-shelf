@@ -56,7 +56,7 @@ app.post('/add-score', function(req, res) {
     console.log(req.body);
 
     res.status(200).send({
-      status: 'OK',
+      status: 'OK'
     });
   } else {
     res.status(200).send({

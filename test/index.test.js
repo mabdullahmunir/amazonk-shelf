@@ -14,7 +14,7 @@ describe('Test API open-shelf', () => {
         })
         .set('Accept', 'application/json')
         .end(function(err, res) {
-          expect(res.status).to.equal(200);
+          expect(res.status).to.equal(400);
           expect(res.body.status).to.equal('OK');
           done();
         });
